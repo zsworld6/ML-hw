@@ -1,7 +1,13 @@
 #!/bin/bash
 
-torchrun --nproc_per_node 1 src/scripts/run_modelscope_llama.py \
-    --ckpt_dir llama3/Meta-Llama-3-8B-Instruct/ \
-    --tokenizer_path llama3/Meta-Llama-3-8B-Instruct/tokenizer.model \
-    --data_path Tasks/house-prices-advanced-regression-techniques \
-    --max_seq_len 4096 --max_batch_size 6
+export PYTHONPATH="your_path_to/ML-hw:$PYTHONPATH"
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+
+python $DIR/main.py --model_path "your_path_to/ML-hw/models/Qwen-7B-Chat" \
+    --data_path "your_path_to/ML-hw/Tasks/house-prices-advanced-regression-techniques" \
+    --reflexion_method 1 \
+    --reflexion_iterations 10 \
+    --caafe_method 0 \
+    --max_seq_len 2048 --max_batch_size 6 \
+    --temperature 0.9 --top_k 1 --top_p 0.95 \
