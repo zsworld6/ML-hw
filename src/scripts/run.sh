@@ -1,11 +1,13 @@
 #!/bin/bash
 
-export PYTHONPATH="your_path_to/ML-hw:$PYTHONPATH"
+
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+GRANDPARENT_DIR="$(cd "$DIR/../.." && pwd)"
+export PYTHONPATH="$GRANDPARENT_DIR/src:$PYTHONPATH"
 
-python $DIR/main.py --model_path "your_path_to/ML-hw/models/Qwen-7B-Chat" \
-    --data_path "your_path_to/ML-hw/Tasks/house-prices-advanced-regression-techniques" \
+python $DIR/main.py --model_path "$GRANDPARENT_DIR/models/Meta-Llama-3-8B-Instruct" \
+    --data_path "$GRANDPARENT_DIR/Tasks/Mobile_Price_Classification" \
     --reflexion_method 1 \
     --reflexion_iterations 10 \
     --caafe_method 0 \

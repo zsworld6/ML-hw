@@ -1,6 +1,8 @@
 models
 Tasks/paris-city-brain-traffic-flow-forecasting/
+sft-data/
 __pycache__/
+
 
 run2.sh
 __init__.py
