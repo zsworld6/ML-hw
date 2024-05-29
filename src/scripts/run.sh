@@ -6,7 +6,7 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 GRANDPARENT_DIR="$(cd "$DIR/../.." && pwd)"
 export PYTHONPATH="$GRANDPARENT_DIR/src:$PYTHONPATH"
 
-python $DIR/main.py --model_path "$GRANDPARENT_DIR/models/Qwen-7B-Chat" \
+python $DIR/main.py --model_path "$GRANDPARENT_DIR/models/Meta-Llama-3-8B-Instruct" \
     --data_path "$GRANDPARENT_DIR/Tasks/spaceship-titanic" \
     --prompt_method 1 \
     --reflexion_iterations 10 \

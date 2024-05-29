@@ -1,6 +1,6 @@
-models
+models/*
 Tasks/paris-city-brain-traffic-flow-forecasting/
-sft-data/
+sft-data/*
 __pycache__/
 
 

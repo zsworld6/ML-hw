@@ -1,0 +1,32 @@
+name: run_env
+channels:
+  - defaults
+dependencies:
+  - python=3.10
+  - ipykernel
+  - openpyxl
+  - scikit-learn
+  - scipy==1.7.3
+  - libgcc
+  - libstdcxx-ng=11.2.0
+  - openai
+  - jsonlines
+  - pip
+  - pip:
+    - datasets==2.18.0
+    - fire==0.6.0        
+    - torch==2.3.0
+    - transformers==4.41.1
+    - trl==0.8.6
+    - unsloth==2024.5
+    - einops
+    - tiktoken
+    - bitsandbytes
+    - xformers
+    - trl
+    - transformers_stream_generator
+    - git+https://github.com/Kaggle/kaggle-api.git    
+    - git+https://github.com/huggingface/peft.git
+    - git+https://github.com/unslothai/unsloth.git
+
+prefix: /home/shiqi/anaconda3/envs/run_env
