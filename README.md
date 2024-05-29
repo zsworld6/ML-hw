@@ -12,6 +12,7 @@ conda env create -f environment.yml
 conda activate run_env
 
 # Run the code
+# Please modify the `run.sh` to specify the dataset and the model you want to use.
 ./src/scripts/run.sh
 ```
 
