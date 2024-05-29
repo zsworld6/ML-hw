@@ -17,9 +17,8 @@ def run_reflexion(
     
     implementations = []
     solution = []
-    cur_func_impl = ""
-    
-    prompt = get_prompts(args.data_path)
+    cur_func_impl = ""    
+    prompt = get_prompts(args.data_path, args.describe_task)
     
     print("Initial Attempt")
     

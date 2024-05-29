@@ -32,9 +32,7 @@ class ModelBase():
 
 class llama3Model(ModelBase):
     def __init__(self, path: str):
-        super().__init__("llama3", path)
-        from modelscope import snapshot_download
-        # model_id = snapshot_download(path)
+        super().__init__("llama3", path)        
         pipeline = transformers.pipeline(
             "text-generation",
             model=path,

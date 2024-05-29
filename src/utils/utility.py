@@ -9,7 +9,7 @@ def get_variable_from_file(file_path, variable_name):
         exec(file.read(), global_namespace)
     return global_namespace.get(variable_name)
 
-def get_prompts(data_path: str) -> str:
+def get_prompts(data_path: str, describe_task: bool) -> str:
     
     example_columns = get_variable_from_file(f"{data_path}/columns.py", "example_columns")
     predict_goal = get_variable_from_file(f"{data_path}/columns.py", "predict_goal")
@@ -19,14 +19,21 @@ def get_prompts(data_path: str) -> str:
     test_file = get_variable_from_file(f"{data_path}/columns.py", "test_file")
     if test_file is None:
         test_file = "test.csv"
-    code = f"""
+    if describe_task:
+        task_description = get_variable_from_file(f"{data_path}/columns.py", "task_description")
+        if task_description is None:
+            task_description = ""
+    else:
+        task_description = ""
+    code = f"""        
+{task_description}
 The dataframe '{data_path}/{train_file}' is loaded and in memory. Columns are also named attributes. 
-Description of the dataset in '{data_path}/{train_file}':
+Examples of the dataset in '{data_path}/{train_file}':
 ```
 {example_columns}
 ```
 Columns data types are all unknown, and you should carefully think the data type of each column by yourself.
-Please choose the best way to implement a model to predict the {predict_goal}. '{data_path}/{train_file}' is the training data. '{data_path}/{test_file}' is the test data. And you should save your prediction as a csv file 'submission.csv'.
+Please choose the best way to implement a model to predict the {predict_goal}. '{data_path}/{train_file}' is the training data. '{data_path}/{test_file}' is the test data. And you should save your prediction as a csv file './submissions/submission.csv'.
 Please try your best to avoiding any possible errors when running your code!
     """
     return code

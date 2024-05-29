@@ -1,11 +1,12 @@
 export MODEL_NAME="llama-3-8b-Instruct-bnb-4bit_sft"
-export DATA_DIR="/home/shiqi/LLaMA-Factory/data"
+export DATA_DIR="/home/shiqi/ML-hw/models/LLaMA-Factory/data"
 export DATA_NAME="codealpaca"
-export BASE_MODEL="/home/shiqi/modelscope_hub/llama-3-8b-Instruct-bnb-4bit" # JUST AN EXAMPLE
+export BASE_MODEL="/home/shiqi/ML-hw/models/llama-3-8b-Instruct-bnb-4bit" # JUST AN EXAMPLE
 export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
 
 # cp finetune/dataset_info.json LLaMA-Factory/data/
-cd ./LLaMA-Factory
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+cd $DIR/../../models/LLaMA-Factory
 
 python \
     src/train.py \

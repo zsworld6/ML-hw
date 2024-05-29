@@ -18,10 +18,16 @@ def parse_args():
         help="The directory where the train and test data is stored."
     )
     parser.add_argument(
-        "--reflexion_method",
+        "--prompt_method",
         type=int,
         default=1,
         help="1 or 2",
+    )
+    parser.add_argument(
+        "--describe_task",
+        type=bool,
+        default=False,
+        help="Whether to describe the task in detail.",
     )
     parser.add_argument(
         "--reflexion_iterations",
@@ -64,11 +70,11 @@ def parse_args():
         type=float,
         default=0.9,
         help="The top p.",
-    )
+    )    
     return parser.parse_args()
 
 def main():
-    args = parse_args()
+    args = parse_args()    
     run_reflexion(args)
     
 

@@ -12,7 +12,8 @@ class PyExecutor:
         print(gen_code_path)
         with open(gen_code_path, "w") as f:
             f.write(code)
-        is_failed, feedback = subprocess.getstatusoutput(f"python {gen_code_path}")
+        is_failed, feedback = subprocess.getstatusoutput(f"cd {target_path} && python {gen_code_path}")
+                                                        #  python {gen_code_path}")
         if not is_failed:
             is_failed, feedback = submit()
         return not is_failed, feedback

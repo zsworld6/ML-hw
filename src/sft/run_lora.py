@@ -8,10 +8,10 @@ from trl import SFTTrainer
 device = "cuda" if torch.cuda.is_available() else "cpu"
 
 # 加载数据集
-dataset = load_dataset("/home/shiqi/data/AlpacaCode", split="train")
+dataset = load_dataset("/home/shiqi/ML-hw/sft-data/AlpacaCode", split="train")
 
 # 加载模型与分词器
-model_name = "/home/shiqi/.cache/modelscope/hub/qwen/Qwen1___5-0___5B-Chat"
+model_name = "/home/shiqi/ML-hw/models/Qwen1___5-0___5B-Chat"
 model = AutoModelForCausalLM.from_pretrained(model_name).to(device)
 tokenizer = AutoTokenizer.from_pretrained(model_name, trust_remote_code=True)
 tokenizer.pad_token = tokenizer.eos_token
@@ -31,7 +31,7 @@ peft_config = LoraConfig(
 
 # 训练参数配置
 training_arguments = TrainingArguments(
-    output_dir="./results1",
+    output_dir="./Qwen1___5-0___5B-Chat-results1",
     per_device_train_batch_size=2,
     gradient_accumulation_steps=8,
     optim="paged_adamw_32bit",
@@ -62,8 +62,8 @@ trainer.train()
 
 # 保存模型
 model_to_save = trainer.model.module if hasattr(trainer.model, "module") else trainer.model
-model_to_save.save_pretrained("./finetuned-model_code")
-lora_config = LoraConfig.from_pretrained("./finetuned-model_code")
+model_to_save.save_pretrained("./Qwen1___5-0___5B-Chat-finetuned-model_code")
+lora_config = LoraConfig.from_pretrained("./Qwen1___5-0___5B-Chat-finetuned-model_code")
 model = get_peft_model(model, lora_config).to(device)
 
 # 使用模型生成文本

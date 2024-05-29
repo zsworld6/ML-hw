@@ -1,47 +1,26 @@
-import pandas as pd
-from sklearn.preprocessing import LabelEncoder
-from sklearn.ensemble import RandomForestRegressor
+from sklearn.naive_bayes import MultinomialNB
 from sklearn.model_selection import train_test_split
-import numpy as np
+from sklearn.metrics import accuracy_score
 
-# Load the training data
-train_data = pd.read_csv('/home/shiqi/ML-hw/Tasks/Mobile_Price_Classification/train.csv')
+# Load the dataset
+data = pd.read_csv('data.csv')
 
-# Define the categorical and numerical columns
-categorical_cols = ['blue', 'clock_speed', 'dual_sim', 'fc', 'four_g','m_dep','mobile_wt', 'n_cores', 'pc','sc_h','sc_w', 'three_g', 'touch_screen', 'wifi']
-numerical_cols = ['battery_power', 'int_memory','m_dep', 'ram', 'px_height', 'px_width', 'talk_time', 'price_range']
+# Split the data into training and testing sets
+X_train, X_test, y_train, y_test = train_test_split(data.drop('target_column_name', axis=1), data['target_column_name'], test_size=0.2)
 
-# Convert categorical columns to numerical using LabelEncoder
-le = LabelEncoder()
-for col in categorical_cols:
-    train_data[col] = le.fit_transform(train_data[col])
+# Select the most relevant features for the model
+X_train = X_train.select_dtypes(include=['object']).dropna()
+X_test = X_test.select_dtypes(include=['object']).dropna()
 
-# Split the data into training and validation sets
-X_train, X_val, y_train, y_val = train_test_split(train_data.drop('price_range', axis=1), train_data['price_range'], test_size=0.2, random_state=42)
+# Fit the model using the selected features
+clf = MultinomialNB()
 
-# Train a random forest regressor model
-rf_model = RandomForestRegressor(n_estimators=100, random_state=42)
-rf_model.fit(X_train, y_train)
+# Train the model
+clf.fit(X_train, y_train)
 
-# Make predictions on the validation set
-y_pred_val = rf_model.predict(X_val)
+# Make predictions on the testing set
+y_pred = clf.predict(X_test)
 
-# Evaluate the model on the validation set
-print('Mean absolute error on validation set: ', np.mean(np.abs(y_pred_val - y_val)))
-
-# Load the test data
-test_data = pd.read_csv('/home/shiqi/ML-hw/Tasks/Mobile_Price_Classification/test.csv')
-
-# Convert categorical columns to numerical using LabelEncoder
-for col in categorical_cols:
-    test_data[col] = le.fit_transform(test_data[col])
-
-# Split the test data into features and target
-X_test = test_data.drop('id', axis=1)
-
-# Make predictions on the test set
-y_pred_test = rf_model.predict(X_test)
-
-# Save the predictions to a csv file
-submission_data = pd.DataFrame({'id': test_data['id'], 'price_range': y_pred_test})
-submission_data.to_csv('submission.csv', index=False)
+# Calculate the accuracy score
+accuracy = accuracy_score(y_test, y_pred)
+print(f"Accuracy: {accuracy}")

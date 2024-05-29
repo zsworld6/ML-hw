@@ -1,8 +1,10 @@
 from typing import Optional, List, Union, Callable, Dict
+from caafe.templates import CAAFE_METHOD_1, CAAFE_METHOD_2
 from .utils import Message, parse_code_block, add_code_block
 import dataclasses
 import argparse
 from .model import get_model_from_path
+
 
 USE_PYTHON_CODEBLOCK_INSTRUCTION = "Use a Python code block to write your response. For example:\n```python\nprint('Hello world!')\n```"
 
@@ -74,6 +76,15 @@ class PyGenerator:
                     # content=f"[improved impl]:\n",
                 ),
             ]
+            if self.args.prompt_method == 2:
+                content_str = '\n'.join([message.content for message in messages])
+                messages = [                    
+                    Message(
+                        role="system",
+                        content=content_str,
+                    ),                    
+                ]
+            
             # print("--------------------------------------------------------------------------------")
             # print(messages)
             # print("--------------------------------------------------------------------------------")
@@ -91,6 +102,32 @@ class PyGenerator:
                     content=func_sig,
                 ),
             ]
+            if self.args.caafe_method == 1:
+                messages.append(
+                    Message(
+                        role="assistant",
+                        content=CAAFE_METHOD_1,
+                    ),
+                )
+            elif self.args.caafe_method == 2:
+                messages.append(
+                    Message(
+                        role="assistant",
+                        content=CAAFE_METHOD_2,
+                    ),
+                )
+            if self.args.prompt_method == 2:                            
+                content_str = '\n'.join([message.content for message in messages])
+                messages = [
+                    Message(
+                        role="system",
+                        content=content_str,
+                    ),
+                ]
+            print('----------------------------------------------------------')
+            content_str = '\n'.join([message.content for message in messages])
+            print(content_str)
+            print('----------------------------------------------------------')
             func_bodies = self.model.generate([dataclasses.asdict(message) for message in messages], self.args)
 
         func_body_str = parse_code_block(func_bodies)
