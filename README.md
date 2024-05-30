@@ -55,3 +55,14 @@ Datasets used for fine-tuning:
 - [alpaca](https://huggingface.co/datasets/tatsu-lab/alpaca)
 
 - [AlpacaCode](https://huggingface.co/datasets/mwitiderrick/AlpacaCode)
+
+### Team Contributions
+
+#### Shiqi Zhang
+Shiqi Zhang led the research design and development of the Reflexion method and final code repository. He also coordinated the data collection and preprocessing tasks, ensuring high-quality datasets for experiments. He contributed significantly to the writing and revising of the final report and poster.
+
+#### Pengrui Lu
+Pengrui Lu mainly focused on the implementation of and optimization of the CAAFE (Context-Aware Automated Feature Engineering) method. He also contributed significantly to the fine-tuning process using LoRA and LLaMA-Factory. He also contributed to the report.
+
+#### Shengyao Chen
+Shengyao Chen developed the Reflexion method and scripts. He contributed significantly to the writing and revising of the poster and final report. He also contributed significantly to the fine-tuning process using LLaMA-Factory.
